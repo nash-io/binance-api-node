@@ -89,6 +89,11 @@ Following examples will use the `await` form, which requires some configuration 
   - [tradeFee](#tradefee)
   - [capitalConfigs](#capitalConfigs)
   - [capitalDepositAddress](#capitalDepositAddress)
+- [Subaccounts](#subaccounts)
+  - [subDepositAddress](#subdepositaddress)
+  - [subTransfer](#subTransfer)
+  - [subToSub](#subToSub)
+  - [subToMaster](#subToMaster)
 - [Websockets](#websockets)
   - [depth](#depth)
   - [partialDepth](#partialdepth)
@@ -1643,6 +1648,112 @@ console.log(await client.capitalDepositAddress({ coin: 'NEO' }))
 ```
 
 </details>
+
+### Subaccounts
+
+Features for transferring funds between subaccounts
+
+#### subDepositAddress
+
+Get deposit address of subaccount ( with master API Key )
+
+```js
+console.log(await client.subDepositAddress({ coin: 'NEO', email: 'subaccount@email.com' }))
+```
+
+| Param    | Type   | Required | Description      |
+| -------- | ------ | -------- | ---------------- |
+| coin     | String | true     | The coin name    |
+| email    | String | true     | subaccount email |
+| network  | String | false    | The network name |
+
+<details>
+<summary>Output</summary>
+
+```js
+{
+  address: 'AM6ytPW78KYxQCmU2pHYGcee7GypZ7Yhhc',
+  coin: 'NEO',
+  tag: '',
+  url: 'https://neoscan.io/address/AM6ytPW78KYxQCmU2pHYGcee7GypZ7Yhhc'
+}
+```
+
+</details>
+
+#### subTransfer
+
+Transfer between subaccounts/master account ( with master API Key)
+
+```js
+console.log(await client.subTransfer({ fromEmail: 'sub1@email.com', toEmail: 'sub2@email.com', asset: 'NEO', amount: 1.0 }))
+```
+
+| Param    | Type   | Required | Description      |
+| -------- | ------ | -------- | ---------------- |
+| fromEmail| String | true     | from email       |
+| toEmail  | String | true     | to email         |
+| asset    | String | true     | asset            |
+| amount   | Decimal| true     | amount           |
+
+<details>
+<summary>Output</summary>
+
+```js
+{
+    "success":true,
+    "txnId":"2966662589"
+}
+```
+
+
+#### subToSub
+
+Transfer between subaccounts of same master account ( with subaccount API Key)
+
+```js
+console.log(await client.subTransfer({toEmail: 'sub2@email.com', asset: 'NEO', amount: 1.0 }))
+```
+
+| Param    | Type   | Required | Description      |
+| -------- | ------ | -------- | ---------------- |
+| toEmail  | String | true     | to email         |
+| asset    | String | true     | asset            |
+| amount   | Decimal| true     | amount           |
+
+<details>
+<summary>Output</summary>
+
+```js
+{
+    "txnId":"2966662589"
+}
+```
+
+
+#### subToMaster
+
+Transfer from subaccount to master account ( with subaccount API Key)
+
+```js
+console.log(await client.subToMaster({ asset: 'NEO', amount: 1.0 }))
+```
+
+| Param    | Type   | Required | Description      |
+| -------- | ------ | -------- | ---------------- |
+| asset    | String | true     | asset            |
+| amount   | Decimal| true     | amount           |
+
+<details>
+<summary>Output</summary>
+
+```js
+{
+    "txnId":"2966662589"
+}
+```
+
+
 
 ### WebSockets
 

@@ -305,6 +305,11 @@ export default opts => {
     tradeFee: payload => privCall('/wapi/v3/tradeFee.html', payload),
     assetDetail: payload => privCall('/wapi/v3/assetDetail.html', payload),
 
+    subDepositAddress: payload => privCall('/sapi/v1/capital/deposit/subAddress', payload, 'GET'),
+    subTransfer: payload => privCall('/wapi/v3/sub-account/transfer.html', payload, 'POST'),
+    subToSub: payload => privCall('/sapi/v1/sub-account/transfer/subToSub', payload, 'POST'),
+    subToMaster: payload => privCall('/sapi/v1/sub-account/transfer/subToMaster', payload, 'POST'),
+
     capitalConfigs: () => privCall('/sapi/v1/capital/config/getall'),
     capitalDepositAddress: payload => privCall('/sapi/v1/capital/deposit/address', payload),
 
