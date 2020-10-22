@@ -1,5 +1,5 @@
 // tslint:disable:interface-name
-declare module 'binance-api-node' {
+declare module 'binance-api-node-nash' {
   export default function(options?: {
     apiKey: string
     apiSecret: string
@@ -98,6 +98,11 @@ declare module 'binance-api-node' {
     id: string
     msg: string
     success: boolean
+  }
+
+  export interface SubaccountTransferResponse {
+    txnid: string,
+    success?: boolean
   }
 
   export enum DepositStatus {
@@ -273,6 +278,22 @@ declare module 'binance-api-node' {
       useServerTime?: boolean
     }): Promise<QueryOrderResult>
     futuresPositionRisk(options?: { recvWindow: number }): Promise<PositionRiskResult[]>
+    subDepositAddress(options: { coin: string, email: string }): Promise<DepositAddress>
+    subTransfer(options: {
+      fromEmail: string
+      toEmail: string
+      asset: string
+      amount: number
+    }): Promise<SubaccountTransferResponse>
+    subToSub(options: {
+      toEmail: string
+      asset: string
+      amount: number
+    }):Promise<SubaccountTransferResponse>
+    subToMaster(options: {
+      asset: string
+      amount: number
+    }):Promise<SubaccountTransferResponse>
   }
 
   export interface HttpError extends Error {

@@ -1,5 +1,5 @@
 {
-  "name": "binance-api-node",
+  "name": "binance-api-node-nash",
   "version": "0.10.7",
   "description": "A node API wrapper for Binance",
   "main": "dist",
